@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+    {% block conteudo%}
+      <form action="autenticar3" methods="post">
+         nome: <input type="text" name="nome"><br>
+         data de nascimento: <input type="date" name="datanc"><br>
+         sexo: <input type="radio" name="peso" value="M"> M
+         <input type="radio" name="peso" value="F"> F<br> 
+         peso: <input type="text" name="peso"><br>
+         <Button type="submit">Enviar</Button>
+      </form>
+
+    {% endblock %}    
