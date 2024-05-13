@@ -11,6 +11,13 @@ mydb = mysql.connector.connect(
     database=os.environ.get('DB_DATABASE', 'db')
 )
 
+def get_available_dates():
+    cursor = mydb.cursor()
+    cursor.execute('SELECT datamc FROM cadastro')
+    rows = cursor.fetchall()
+    available_dates = [str(row[0]) for row in rows]
+    return available_dates
+
 @app.route('/')
 def default():
     return render_template('index.html')
@@ -26,6 +33,7 @@ def idoso():
 @app.route('/gestante')
 def gestante():
     return render_template('gestante.html')
+
 
 @app.route('/recemnascido')
 def recemnascido():
@@ -45,7 +53,34 @@ def autenticar3():
         mydb.commit()
         cursor.close()
         flash("Cadastro confirmado", "success")
-        return redirect('/recemnascido')
+        return redirect('/consulta')
     except mysql.connector.Error as err:
         flash(f"Erro ao cadastrar: {err}", "error")
         return redirect('/recemnascido')
+
+@app.route('/autenticar4', methods=['POST'])
+def autenticar4():
+    datamc = request.form.get('datamc')
+    nomedt = request.form.get('nomedt')
+    cursor = mydb.cursor()
+
+    cursor.execute('SELECT COUNT(*) FROM cadastro WHERE datamc = %s', (datamc,))
+    result = cursor.fetchone()
+
+    if result[0] > 0:
+        flash("Já existe uma consulta marcada para esta data", "error")
+        return redirect('/consulta')
+    try:
+        cursor.execute('INSERT INTO cadastro (datamc,nomedt) VALUES (%s,%s)', (datamc,nomedt))
+        mydb.commit()
+        cursor.close()
+        flash("Consulta marcada", "successo")
+        return redirect('/consulta')
+    except mysql.connector.Error as err:
+        flash(f"Erro ao marcar a consulta: {err}", "error")
+        return redirect('/consulta')
+
+@app.route('/consulta')
+def consulta():
+    available_dates = get_available_dates()
+    return render_template('consulta.html', available_dates=available_dates)

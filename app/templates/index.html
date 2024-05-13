@@ -1,6 +1,12 @@
+<!-- index.html -->
 {% extends "base.html" %}
-    {% block conteudo%}
-        <a href="/idoso">idoso(a)</a>
-        <a href="/gestante">gestante</a>
-        <a href="/recemnascido"> Recém Nascido(a)</a>
-    {% endblock %}    
+{% block conteudo %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='estilo.css') }}">
+</head>
+<div id="conteudo1">
+    <a href="/idoso">idoso(a)</a>
+    <a href="/gestante">gestante</a>
+    <a href="/recemnascido"> Recém Nascido(a)</a>
+</div>
+{% endblock %}

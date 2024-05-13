@@ -1,0 +1,11 @@
+/* estilo.css */
+#conteudo1 a {
+    display: block;
+    margin-bottom: 10px;
+    color: blue;
+    text-decoration: none;
+}
+
+#conteudo1 a:hover {
+    color: darkblue;
+}

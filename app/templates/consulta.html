@@ -1,0 +1,19 @@
+<!-- Seu arquivo HTML (por exemplo, consulta.html) -->
+{% extends "base.html" %}
+{% block conteudo %}
+    {% with mensagens = get_flashed_messages() %}
+        {% if mensagens %}
+            {% for msg in mensagens %}
+                {{ msg }}
+            {% endfor %}
+        {% endif %}
+        <head>
+            <link rel="stylesheet" href="{{ url_for('static', filename='estilo3.css') }}">
+        </head>
+        <form action="autenticar4" method="post">
+            nome do responsavel: <input type="text" name="nomedt"><br>
+            data da consulta médica: <input type="date" name="datamc" {% if available_dates %} min="{{ available_dates[0] }}" max="{{ available_dates[-1] }}" {% endif %}><br>
+            <Button type="submit">Enviar</Button>
+        </form>
+    {% endwith %}
+{% endblock %}
