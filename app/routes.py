@@ -7,7 +7,7 @@ mydb = mysql.connector.connect(
     host=os.environ.get('MYSQL_HOST', 'localhost'),
     user=os.environ.get('MYSQL_USER', 'root'),
     port=os.environ.get('MYSQL_PORT', 3306),
-    password=os.environ.get('MYSQL_HOST', ''),
+    password=os.environ.get('MYSQL_PASSWORD', ''),
     database=os.environ.get('DB_DATABASE', 'db')
 )
 
