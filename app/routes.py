@@ -84,3 +84,4 @@ def autenticar4():
 def consulta():
     available_dates = get_available_dates()
     return render_template('consulta.html', available_dates=available_dates)
+
